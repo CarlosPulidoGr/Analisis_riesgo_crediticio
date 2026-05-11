@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: pkd_bank      # El nombre de tu origen
+    database: PROYECTO
+    schema: BRONZE
+    tables:
+      - name: client       # Tabla 1
+      - name: account      # Tabla 2
+      - name: disp         # Tabla 3
+      - name: district     # Tabla 4
+      - name: loan         # Tabla 5
+      - name: trans        # Tabla 6
+      - name: card         # Tabla 7
+      - name: orders # Tabla 8
