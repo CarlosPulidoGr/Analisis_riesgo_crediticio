@@ -8,7 +8,7 @@ SELECT
     account_id,
     
     -- 1. Transformación de Fecha: De Integer (930705) a DATE real (1993-07-05)
-    TO_DATE(CAST("date" AS VARCHAR), 'YYMMDD') AS investment_date,
+    TO_DATE(CAST("DATE" AS VARCHAR), 'YYMMDD') AS investment_date,
     
     -- 2. Casteo de métricas financieras de la inversión
     CAST(amount AS FLOAT) AS investment_amount,

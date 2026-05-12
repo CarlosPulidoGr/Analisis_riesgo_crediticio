@@ -15,6 +15,6 @@ SELECT
     END AS statement_frequency,
     
     -- Parseo de fecha de Integer a Date
-    TO_DATE(CAST("date" AS VARCHAR), 'YYMMDD') AS account_creation_date
+    TO_DATE(CAST("DATE" AS VARCHAR), 'YYMMDD') AS account_creation_date
 
 FROM raw_account

@@ -1,3 +1,8 @@
+{{ config(
+    materialized='incremental',
+    unique_key='transaction_id'
+) }} -- esto es para la carga incremental
+
 WITH raw_trans AS (
     SELECT * FROM {{ source('pkd_bank', 'trans') }}
 )
@@ -7,10 +12,10 @@ SELECT
     account_id,
     
     -- 1. Parseo de la fecha (de YYMMDD a DATE)
-    TO_DATE(CAST("date" AS VARCHAR), 'YYMMDD') AS transaction_date,
+    TO_DATE(CAST("DATE" AS VARCHAR), 'YYMMDD') AS transaction_date,
     
     -- 2. Traducción de la dirección del flujo de caja (type)
-    CASE UPPER(TRIM("type"))
+    CASE UPPER(TRIM("TYPE"))
         WHEN 'PRIJEM' THEN 'Credit'               -- Ingreso
         WHEN 'VYDAJ' THEN 'Withdrawal'            -- Gasto
         WHEN 'VYBER' THEN 'Withdrawal in Cash'    -- Retirada en efectivo
@@ -51,3 +56,11 @@ SELECT
     COALESCE(NULLIF(TRIM(account), ''), 'N/A') AS partner_account
 
 FROM raw_trans
+
+-- Lógica Incremental: Solo se ejecuta si la tabla ya existe y es un 'dbt run' normal
+{% if is_incremental() %}
+
+  -- Filtramos para coger solo los registros cuya fecha sea mayor a la última fecha que tenemos guardada
+  WHERE TO_DATE(CAST("DATE" AS VARCHAR), 'YYMMDD') > (select max(transaction_date) from {{ this }})
+
+{% endif %}
