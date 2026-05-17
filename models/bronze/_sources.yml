@@ -1,0 +1,18 @@
+version: 2
+
+sources:
+  - name: pkdd99_raw
+    database: proyecto_dev
+    schema: bronze
+    description: "Tablas crudas ingeridas directamente de los CSVs del dataset PKDD 99."
+    tables:
+      - name: raw_loan
+        description: "Datos crudos de préstamos."
+      - name: raw_account
+        description: "Datos crudos de cuentas bancarias."
+      - name: raw_client
+      - name: raw_disp
+      - name: raw_district
+      - name: raw_trans
+      - name: raw_card
+      - name: raw_order
