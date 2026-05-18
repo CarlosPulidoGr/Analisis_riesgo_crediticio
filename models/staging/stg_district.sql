@@ -21,13 +21,15 @@ select
     cast(a11 as float) as average_salary,
     
     -- Algunos datos como la tasa de desempleo vienen con '?' en lugar de nulos
-    cast(nullif(a12, '?') as float) as unemployment_rate_95,
-    cast(nullif(a13, '?') as float) as unemployment_rate_96,
+    -- Usamos TRY_CAST para convertir de forma segura cualquier texto no numérico ('?') a NULL
+    -- Forzamos el paso a texto (varchar) antes del TRY_CAST para evitar errores de compilación
+    try_cast(cast(a12 as varchar) as float) as unemployment_rate_95,
+    try_cast(cast(a13 as varchar) as float) as unemployment_rate_96,
     
     cast(a14 as integer) as entrepreneurs_per_1000,
     
-    cast(nullif(a15, '?') as integer) as committed_crimes_95,
-    cast(nullif(a16, '?') as integer) as committed_crimes_96,
+    try_cast(cast(a15 as varchar) as integer) as committed_crimes_95,
+    try_cast(cast(a16 as varchar) as integer) as committed_crimes_96,
     
     _loaded_at,
     _source_file
