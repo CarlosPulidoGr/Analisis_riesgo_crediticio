@@ -53,7 +53,6 @@ historical_trans_features as (
     from loans l
     left join transactions t 
         on l.account_id = t.account_id 
-        -- ACTUALIZADO: Evitamos Data Leakage usando date_id
         and t.transaction_date < l.date_id
     group by l.loan_id
 )
