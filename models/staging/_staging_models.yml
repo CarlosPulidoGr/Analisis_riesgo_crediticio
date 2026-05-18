@@ -1,0 +1,109 @@
+version: 2
+
+models:
+  - name: stg_loan
+    description: "Tabla normalizada de préstamos."
+    columns:
+      - name: loan_id
+        tests:
+          - unique
+          - not_null
+      - name: account_id
+        tests:
+          - not_null
+      - name: loan_status
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['A', 'B', 'C', 'D']
+
+  - name: stg_trans
+    description: "Tabla incremental de transacciones."
+    columns:
+      - name: trans_id
+        tests:
+          - unique
+          - not_null
+      - name: transaction_type
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['CREDIT', 'WITHDRAWAL']
+
+  - name: stg_client
+    description: "Tabla de clientes normalizada."
+    columns:
+      - name: client_id
+        tests:
+          - unique
+          - not_null
+      - name: district_id
+        tests:
+          - not_null
+
+  - name: stg_disp
+    description: "Tabla de disposiciones (relación cliente-cuenta)."
+    columns:
+      - name: disp_id
+        tests:
+          - unique
+          - not_null
+      - name: client_id
+        tests:
+          - not_null
+      - name: account_id
+        tests:
+          - not_null
+      - name: disposition_type
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['OWNER', 'DISPONENT']
+
+  - name: stg_card
+    description: "Tabla de tarjetas de crédito emitidas."
+    columns:
+      - name: card_id
+        tests:
+          - unique
+          - not_null
+      - name: disp_id
+        tests:
+          - not_null
+      - name: card_type
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['classic', 'junior', 'gold']
+
+  - name: stg_account
+    description: "Tabla de cuentas bancarias."
+    columns:
+      - name: account_id
+        tests:
+          - unique
+          - not_null
+      - name: statement_frequency
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['MONTHLY ISSUANCE', 'WEEKLY ISSUANCE', 'ISSUANCE AFTER TRANSACTION']
+
+  - name: stg_order
+    description: "Órdenes de pago permanentes."
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+      - name: account_id
+        tests:
+          - not_null
+
+  - name: stg_district
+    description: "Datos demográficos por distrito."
+    columns:
+      - name: district_id
+        tests:
+          - unique
+          - not_null
