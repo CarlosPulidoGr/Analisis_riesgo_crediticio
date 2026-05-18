@@ -38,3 +38,6 @@ models:
       core:
         +schema: gold
         +materialized: table
+      analytics:
+        +schema: analytics
+        +materialized: table
