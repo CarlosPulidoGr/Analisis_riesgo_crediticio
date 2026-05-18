@@ -29,7 +29,7 @@ models:
   my_new_project:
     
     # Capa Silver: Todos los modelos dentro de models/silver/ irán al esquema SILVER
-    silver:
+    staging:
       +schema: silver
       +materialized: table
 
