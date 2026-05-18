@@ -7,7 +7,7 @@ with loans as (
     select 
         loan_id,
         account_id,
-        date_id,  -- ACTUALIZADO: Leemos date_id de tu fact_loan
+        date_id,
         loan_amount,
         duration_months,
         monthly_payment,
@@ -23,7 +23,7 @@ transactions as (
         amount,
         balance,
         transaction_type
-    from {{ ref('stg_trans') }} -- Aseguramos que lea de stg_trans
+    from {{ ref('stg_trans') }}
 ),
 
 accounts as (
@@ -38,7 +38,7 @@ districts as (
         district_id,
         average_salary,
         unemployment_rate_96
-    from {{ ref('stg_district') }} -- Aseguramos que lea de stg_district
+    from {{ ref('stg_district') }}
 ),
 
 -- Agregamos las transacciones previas a la fecha de cada préstamo
