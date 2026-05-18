@@ -1,33 +1,25 @@
 {{ config(materialized='table', tags=['gold', 'dimension']) }}
 
-with client as (
-    select * from {{ ref('stg_client') }}
-),
-district as (
-    select * from {{ ref('stg_district') }}
+with snapshot as (
+    select * from {{ ref('snp_client') }}
 )
 
 select
-    c.client_id,
-    -- El formato es YYMMDD. Si el mes es > 50, es mujer.
+    -- Generamos una surrogate key porque un mismo client_id ahora puede aparecer varias veces (historial)
+    {{ dbt_utils.generate_surrogate_key(['client_id', 'dbt_valid_from']) }} as client_sk,
+    client_id,
+    gender,
+    birth_date,
+    district_id,
+    district_name,
+    region,
+    
+    -- Columnas de control del SCD Tipo 2
+    dbt_valid_from as valid_from_date,
+    dbt_valid_to as valid_to_date,
     case 
-        when cast(substring(c.birth_number_raw, 3, 2) as integer) > 50 then 'Female'
-        else 'Male'
-    end as gender,
-    
-    -- Reconstrucción de la fecha de nacimiento (sumando 1900 al año)
-    date_from_parts(
-        1900 + cast(substring(c.birth_number_raw, 1, 2) as integer),
-        case 
-            when cast(substring(c.birth_number_raw, 3, 2) as integer) > 50 
-            then cast(substring(c.birth_number_raw, 3, 2) as integer) - 50
-            else cast(substring(c.birth_number_raw, 3, 2) as integer)
-        end,
-        cast(substring(c.birth_number_raw, 5, 2) as integer)
-    ) as birth_date,
-    
-    c.district_id,
-    d.district_name,
-    d.region
-from client c
-left join district d on c.district_id = d.district_id
+        when dbt_valid_to is null then true 
+        else false 
+    end as is_current_record
+
+from snapshot
