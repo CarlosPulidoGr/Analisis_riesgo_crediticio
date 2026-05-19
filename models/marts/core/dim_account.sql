@@ -8,6 +8,8 @@ district as (
 )
 
 select
+-- Generación de Clave Subrogada pura mediante MD5
+    {{ dbt_utils.generate_surrogate_key(['a.account_id']) }} as account_sk,
     a.account_id,
     a.statement_frequency,
     a.account_creation_date,

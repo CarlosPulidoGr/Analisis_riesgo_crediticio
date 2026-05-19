@@ -2,7 +2,7 @@
 
 {{
     config(
-      target_schema='gold',
+      target_schema='snapshots',
       unique_key='client_id',
       strategy='check',
       check_cols=['district_id']

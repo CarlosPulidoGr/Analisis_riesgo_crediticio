@@ -1,6 +1,6 @@
 {{ config(materialized='table', tags=['gold', 'dimension']) }}
 
-with snapshot as (
+with snapshot_source as (
     select * from {{ ref('snp_client') }}
 )
 
@@ -22,4 +22,4 @@ select
         else false 
     end as is_current_record
 
-from snapshot
+from snapshot_source

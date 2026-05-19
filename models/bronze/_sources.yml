@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: pkdd99_raw
-    database: PROYECTO_DEV  # Tu base de datos real
+    database: "{{ target.database }}"  # Tu base de datos real
     schema: BRONZE          # Tu esquema real
     tables:
       - name: raw_account
