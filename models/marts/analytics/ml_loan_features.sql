@@ -81,6 +81,6 @@ select
     d.unemployment_rate_96 as district_unemployment_rate
 
 from loans l
-join historical_trans_features f on l.loan_id = f.loan_id
-join accounts a on l.account_id = a.account_id
-join districts d on a.branch_district_id = d.district_id
+left join historical_trans_features f on l.loan_id = f.loan_id
+left join accounts a on l.account_id = a.account_id
+left join districts d on a.branch_district_id = d.district_id

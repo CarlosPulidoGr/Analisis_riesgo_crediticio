@@ -58,7 +58,7 @@ models:
             - account_id
             - date_id
     columns:
-      - name: monthly_balance_id
+      - name: monthly_balance_sk
         tests:
           - unique
           - not_null

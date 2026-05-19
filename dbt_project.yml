@@ -1,14 +1,11 @@
-# Name your project! Project names should contain only lowercase characters
-# and underscores. A good package name should reflect your organization's
-# name or the intended use of these models
-name: 'my_new_project'
+# Nombre descriptivo y profesional del proyecto
+name: 'pkdd99_credit_risk'
 version: '1.0.0'
 config-version: 2
 
-# This setting configures which "profile" dbt uses for this project.
-profile: 'default'
+# El perfil debe coincidir con el que definas en tu ~/.dbt/profiles.yml
+profile: 'pkdd99_profile'
 
-# These configurations specify where dbt should look for different types of files.
 model-paths: ["models"]
 analysis-paths: ["analyses"]
 test-paths: ["tests"]
@@ -16,28 +13,40 @@ seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 
-target-path: "target"  # directory which will store compiled SQL files
-clean-targets:         # directories to be removed by `dbt clean`
+target-path: "target"  
+clean-targets:         
   - "target"
   - "dbt_packages"
 
-
-# Configuring models
-# Full documentation: https://docs.getdbt.com/docs/configuring-models
-
+# Configuración centralizada de modelos (Arquitectura Medallion)
 models:
-  my_new_project:
+  pkdd99_credit_risk: # <--- OBLIGATORIO: Debe ser idéntico al 'name:' de arriba
     
-    # Capa Silver: Todos los modelos dentro de models/silver/ irán al esquema SILVER
+    # Capa Bronze: Vistas ligeras directamente contra la raw data
+    bronze:
+      +schema: bronze
+      +materialized: view
+      +tags: ["bronze"]
+
+    # Capa Silver (Staging): Limpieza y normalización
     staging:
       +schema: silver
       +materialized: table
+      +tags: ["silver"]
 
-    # Capa Gold: Todos los modelos dentro de models/marts/core/ irán al esquema GOLD
+    # Capa Gold (Marts): Modelado dimensional y Features para ML
     marts:
       core:
         +schema: gold
         +materialized: table
+        +tags: ["gold", "core"]
       analytics:
         +schema: analytics
         +materialized: table
+        +tags: ["gold", "ml_features"]
+
+# Configuración para la carga de CSVs estáticos
+seeds:
+  pkdd99_credit_risk:
+    +schema: silver
+    +tags: ["seed", "dictionary"]
