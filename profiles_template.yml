@@ -1,0 +1,37 @@
+# ==============================================================================
+# PLANTILLA DE CONEXIÓN A SNOWFLAKE
+# INSTRUCCIONES: 
+# 1. Copia este archivo a tu directorio local ~/.dbt/profiles.yml
+# 2. Reemplaza los valores entre < > con tus credenciales reales.
+# 3. NUNCA subas el archivo profiles.yml con datos reales a este repositorio.
+# ==============================================================================
+
+pkdd99_profile: # Este nombre debe coincidir con el campo 'profile:' de tu dbt_project.yml
+  target: dev   # Entorno por defecto al ejecutar 'dbt run'
+  outputs:
+    
+    # Entorno de Desarrollo (Para los ingenieros de datos)
+    dev:
+      type: snowflake
+      account: <tu_cuenta_snowflake_ej_xy12345.eu-west-1.aws>
+      user: <tu_usuario>
+      password: <tu_contraseña>
+      role: <tu_rol_ej_SYSADMIN>
+      database: PROYECTO_DEV
+      warehouse: COMPUTE_WH
+      # Buenas prácticas: En DEV cada ingeniero compila en su propio esquema temporal
+      schema: dbt_<tu_nombre_o_iniciales> 
+      threads: 4
+
+    # Entorno de Producción (Usado por el orquestador automático, ej. Airflow o dbt Cloud)
+    prod:
+      type: snowflake
+      account: <tu_cuenta_snowflake>
+      user: <usuario_de_servicio_cicd> 
+      password: <contraseña_segura_prod>
+      role: <rol_produccion>
+      database: PROYECTO_PROD
+      warehouse: COMPUTE_WH
+      # En producción, dbt_project.yml manda los modelos a GOLD, SILVER, etc.
+      schema: CORE 
+      threads: 8

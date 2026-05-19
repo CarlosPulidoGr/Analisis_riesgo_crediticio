@@ -1,0 +1,21 @@
+version: 2
+
+seeds:
+  - name: loan_status_dictionary
+    description: "Diccionario estático para mapear los códigos de estado de los préstamos a descripciones de negocio."
+    columns:
+      - name: status_code
+        description: "Código original del sistema fuente (A, B, C, D)"
+        tests:
+          - unique
+          - not_null
+          - accepted_values:
+              values: ['A', 'B', 'C', 'D']
+      - name: status_description
+        description: "Descripción legible para los dashboards de Power BI"
+        tests:
+          - not_null
+      - name: is_default
+        description: "Bandera booleana (True/False) para modelos de Machine Learning indicando si es impago"
+        tests:
+          - not_null

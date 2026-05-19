@@ -1,0 +1,25 @@
+version: 2
+
+sources:
+  - name: pkdd99_raw
+    database: "{{ target.database }}"  # Tu base de datos real
+    schema: BRONZE          # Tu esquema real
+    tables:
+      - name: raw_account
+        identifier: account  # <--- Esta es la clave
+      - name: raw_loan
+        identifier: loan
+      - name: raw_client
+        identifier: client
+      - name: raw_disp
+        identifier: disp
+      - name: raw_district
+        identifier: district
+      - name: raw_trans
+        identifier: trans
+      - name: raw_card
+        identifier: card
+      - name: raw_order
+        identifier: ORDER
+        quoting:
+          identifier: true

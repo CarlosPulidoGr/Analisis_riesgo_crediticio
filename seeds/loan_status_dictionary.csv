@@ -1,0 +1,5 @@
+status_code,status_description,is_default
+A,Contract Finished - No Problems,False
+B,Contract Finished - Loan Not Payed,True
+C,Running Contract - OK,False
+D,Running Contract - Client in Debt,True
