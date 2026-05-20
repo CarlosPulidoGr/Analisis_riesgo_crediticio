@@ -9,7 +9,7 @@ with staging_transactions as (
     
     {% if is_incremental() %}
         -- Filtro dinámico: Solo lee las transacciones más recientes que las ya procesadas en Snowflake
-        where transaction_date > (select max(transaction_date) from {{ this }})
+        where transaction_date > (select max(date_id) from {{ this }})
     {% endif %}
 )
 
