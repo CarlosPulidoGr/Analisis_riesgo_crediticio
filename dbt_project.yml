@@ -40,6 +40,10 @@ models:
         +schema: gold
         +materialized: table
         +tags: ["gold", "core"]
+      risk:
+        +schema: gold
+        +materialized: table
+        +tags: ["gold", "risk"]
       analytics:
         +schema: analytics
         +materialized: table
