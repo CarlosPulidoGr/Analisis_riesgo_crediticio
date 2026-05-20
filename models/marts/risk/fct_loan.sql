@@ -12,7 +12,7 @@ select
     duration_months,
     monthly_payment,
     loan_status,
-    '{{ env_var("DBT_ENV_TAG", "DEV" )}}' AS dbt_enviroment
+    '{{ env_var("DBT_ENV_TAG", "DEV" )}}' AS dbt_enviroment,
     -- Creamos descriptivos claros para Power BI y una bandera (flag) de impago
     case
         when loan_status = 'A' then 'Contract Finished - No Problems'
