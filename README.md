@@ -1,6 +1,6 @@
 Este repositorio contiene el pipeline de transformación de datos (Data Engineering) construido con dbt (Data Build Tool) y Snowflake. El objetivo principal es preparar y modelar datos transaccionales bancarios para alimentar un Modelo Predictivo de Riesgo Crediticio y dashboards de inteligencia de negocio en Power BI.
 
-# Arquitectura de Datos (Medallion Architecture)
+# Arquitectura de Datos
 El modelado sigue las mejores prácticas de Kimball y se divide en tres capas conceptuales:
 
 •	Bronze (Raw): Ingesta de datos crudos desde Snowflake. Definición de sources.
