@@ -8,15 +8,14 @@ with staging_transactions as (
     select * from {{ ref('stg_trans') }}
     
     {% if is_incremental() %}
-        -- Filtro dinámico: Solo lee las transacciones más recientes que las ya procesadas en Snowflake
         where transaction_date > (select max(date_id) from {{ this }})
     {% endif %}
 )
 
 select
-    trans_id as transaction_id,              -- Clave primaria del apunte bancario
-    account_id,                  -- Clave foránea hacia dim_account
-    transaction_date as date_id, -- Clave foránea hacia dim_date
+    trans_id as transaction_id,     
+    account_id,                
+    transaction_date as date_id,
     transaction_type,
     operation_type,
     amount,

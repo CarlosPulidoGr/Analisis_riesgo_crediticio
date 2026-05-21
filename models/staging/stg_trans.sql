@@ -8,8 +8,6 @@ with source as (
     select * from {{ ref('brz_trans') }}
     
     {% if is_incremental() %}
-        -- Esta lógica solo se ejecuta si la tabla ya existe.
-        -- Filtramos en origen para procesar solo los IDs nuevos, optimizando la consulta.
         where cast(trans_id as integer) > (select coalesce(max(trans_id), 0) from {{ this }})
     {% endif %}
 )

@@ -4,9 +4,12 @@ models:
   - name: dim_client
     description: "Dimensión de clientes con datos demográficos y cruce de distritos."
     columns:
-      - name: client_id
+      - name: dbt_scd_id
+        description: "Clave subrogada única generada automáticamente por dbt para el SCD2."
         tests:
           - unique
+      - name: client_id
+        tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
               arguments:
