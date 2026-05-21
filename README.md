@@ -18,20 +18,20 @@ El modelado sigue las mejores prácticas de Kimball y se divide en tres capas co
 
 1. Instalar dependencias (dbt-utils)
    
-dbt deps
+   dbt deps
 
 2. Cargar las semillas (diccionarios de datos estáticos)
    
-dbt seed
+   dbt seed
 
 3. Ejecutar los modelos (con captura de snapshots para SCD Tipo 2)
    
-dbt snapshot
-dbt run
+   dbt snapshot
+   dbt run
 
 4. Ejecutar la batería de tests (Genéricos y Singulares)
    
-dbt test
+   dbt test
 
 Linaje de Datos y Gobernanza
 Para visualizar el DAG (Directed Acyclic Graph) y consultar el diccionario de datos documentado:
