@@ -17,16 +17,20 @@ El modelado sigue las mejores prácticas de Kimball y se divide en tres capas co
 # Cómo ejecutar el proyecto
 
 1. Instalar dependencias (dbt-utils)
+   
 dbt deps
 
 2. Cargar las semillas (diccionarios de datos estáticos)
+   
 dbt seed
 
 3. Ejecutar los modelos (con captura de snapshots para SCD Tipo 2)
+   
 dbt snapshot
 dbt run
 
 4. Ejecutar la batería de tests (Genéricos y Singulares)
+   
 dbt test
 
 Linaje de Datos y Gobernanza
