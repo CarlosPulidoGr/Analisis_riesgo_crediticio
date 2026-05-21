@@ -39,8 +39,6 @@ select
     cast(amount as float) as amount,
     cast(balance as float) as balance,
     
-    -- Los CSV tienen celdas vacías ('') que deben ser NULL reales
-    -- Casteamos a texto antes de evaluar el nulo para evitar errores de tipo numérico
     nullif(cast(k_symbol as varchar), '') as k_symbol,
     nullif(cast(bank as varchar), '') as bank_partner,
     nullif(cast(account as varchar), '') as account_partner,
