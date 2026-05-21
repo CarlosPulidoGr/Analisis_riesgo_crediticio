@@ -9,14 +9,16 @@ models:
           - unique
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: number
+              arguments:
+                column_type: number
       - name: district_id
         tests:
           - not_null
           # Integridad referencial con la capa Silver
           - relationships:
-              to: ref('stg_district')
-              field: district_id
+              arguments:
+                to: ref('stg_district')
+                field: district_id
 
   - name: dim_account
     description: "Dimensión de cuentas bancarias y sucursal."
@@ -41,22 +43,25 @@ models:
           - not_null
           # TEST DE INTEGRIDAD: Asegura que el préstamo esté asociado a una cuenta que exista en nuestra dimensión
           - relationships:
-              to: ref('dim_account')
-              field: account_id
+              arguments:
+                to: ref('dim_account')
+                field: account_id
       - name: is_default_flag
         tests:
           - not_null
           - accepted_values:
-              values: [0, 1]
+              arguments:
+                values: [0, 1]
 
   - name: fct_monthly_balance
     description: "Tabla de hechos de saldo mensual por cuenta (Snapshot)."
     tests:
       # TEST AVANZADO DE DBT_UTILS: Asegura que no haya dos registros para la misma cuenta en el mismo mes
       - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - account_id
-            - date_id
+          arguments:
+            combination_of_columns:
+              - account_id
+              - date_id
     columns:
       - name: monthly_balance_sk
         tests:
@@ -66,11 +71,13 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('dim_account')
-              field: account_id
+              arguments:
+                to: ref('dim_account')
+                field: account_id
       - name: ending_balance
         tests:
           - not_null
           # Aseguramos que el saldo calculado sea de tipo numérico
           - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: float
+              arguments:
+                column_type: float

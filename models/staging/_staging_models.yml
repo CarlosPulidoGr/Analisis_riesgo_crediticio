@@ -15,7 +15,8 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values: ['A', 'B', 'C', 'D']
+              arguments:
+                values: ['A', 'B', 'C', 'D']
 
   - name: stg_trans
     description: "Tabla incremental de transacciones."
@@ -28,7 +29,8 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values: ['CREDIT', 'WITHDRAWAL']
+              arguments:
+                values: ['CREDIT', 'WITHDRAWAL']
 
   - name: stg_client
     description: "Tabla de clientes normalizada."
@@ -58,7 +60,8 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values: ['OWNER', 'DISPONENT']
+              arguments:
+                values: ['OWNER', 'DISPONENT']
 
   - name: stg_card
     description: "Tabla de tarjetas de crédito emitidas."
@@ -74,7 +77,8 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values: ['classic', 'junior', 'gold']
+              arguments:
+                values: ['classic', 'junior', 'gold']
 
   - name: stg_account
     description: "Tabla de cuentas bancarias."
@@ -87,7 +91,8 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values: ['MONTHLY ISSUANCE', 'WEEKLY ISSUANCE', 'ISSUANCE AFTER TRANSACTION']
+              arguments:
+                values: ['MONTHLY ISSUANCE', 'WEEKLY ISSUANCE', 'ISSUANCE AFTER TRANSACTION']
 
   - name: stg_order
     description: "Órdenes de pago permanentes."

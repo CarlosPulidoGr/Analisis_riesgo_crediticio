@@ -10,7 +10,8 @@ seeds:
           - unique
           - not_null
           - accepted_values:
-              values: ['A', 'B', 'C', 'D']
+              arguments:         
+                values: ['A', 'B', 'C', 'D'] 
       - name: status_description
         description: "Descripción legible para los dashboards de Power BI"
         tests:

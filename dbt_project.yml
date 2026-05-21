@@ -1,9 +1,8 @@
-# Nombre descriptivo y profesional del proyecto
 name: 'pkdd99_credit_risk'
 version: '1.0.0'
 config-version: 2
 
-# El perfil debe coincidir con el que definas en tu ~/.dbt/profiles.yml
+# /.dbt/profiles.yml
 profile: 'pkdd99_profile'
 
 model-paths: ["models"]
@@ -18,23 +17,19 @@ clean-targets:
   - "target"
   - "dbt_packages"
 
-# Configuración centralizada de modelos (Arquitectura Medallion)
 models:
-  pkdd99_credit_risk: # <--- OBLIGATORIO: Debe ser idéntico al 'name:' de arriba
+  pkdd99_credit_risk: 
     
-    # Capa Bronze: Vistas ligeras directamente contra la raw data
     bronze:
       +schema: bronze
       +materialized: view
       +tags: ["bronze"]
 
-    # Capa Silver (Staging): Limpieza y normalización
     staging:
       +schema: silver
       +materialized: table
       +tags: ["silver"]
 
-    # Capa Gold (Marts): Modelado dimensional y Features para ML
     marts:
       core:
         +schema: gold
