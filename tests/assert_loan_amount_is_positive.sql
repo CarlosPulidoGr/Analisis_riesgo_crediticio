@@ -1,6 +1,4 @@
--- Queremos atrapar cualquier préstamo con importe cero o negativo.
--- Si esto devuelve 0 filas, el test PASA.
-
+-- Atrapar cualquier préstamo con importe cero o negativo.
 select
     loan_id,
     loan_amount
