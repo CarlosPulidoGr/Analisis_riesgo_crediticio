@@ -18,13 +18,13 @@ district as (
 
 select
     c.client_id,
-    -- Extracción del género
+    -- género
     case 
         when cast(substring(c.birth_number_raw, 3, 2) as integer) > 50 then 'Female'
         else 'Male'
     end as gender,
     
-    -- Reconstrucción de la fecha de nacimiento
+    -- fecha de nacimiento
     date_from_parts(
         1900 + cast(substring(c.birth_number_raw, 1, 2) as integer),
         case 
