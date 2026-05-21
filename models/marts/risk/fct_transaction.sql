@@ -8,7 +8,7 @@ with staging_transactions as (
     select * from {{ ref('stg_trans') }}
     
     {% if is_incremental() %}
-        where transaction_date > (select max(date_id) from {{ this }})
+        where trans_id > (select max(transaction_id) from {{ this }})
     {% endif %}
 )
 
